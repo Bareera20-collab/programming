@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+/* ------------------------------
+Pattern 1: Hollow Rectangle
+------------------------------ */
+/*
+    int row, col;
+    cout << "Enter rows and columns:\n";
+    cin >> row >> col;
+    for (int i = 1; i <= row; i++) {
+        for (int j = 1; j <= col; j++) {
+            if (i == 1 || i == row || j == 1 || j == col)
+                cout << "*";
+            else
+                cout << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+*/
+
+/* ------------------------------
+Pattern 2: Inverted Right Triangle
+------------------------------ */
+/*
+    int n;
+    cout << "Enter rows:\n";
+    cin >> n;
+    for (int i = n; i >= 1; i--) {
+        for (int j = 1; j <= i; j++) {
+            cout << "*";
+        }
+        cout << endl;
+    }
+    return 0;
+*/
+
+/* ------------------------------
+Pattern 3: Right-aligned Triangle
+------------------------------ */
+/*
+    int n;
+    cout << "Enter rows:\n";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (j <= n - i)
+                cout << " ";
+            else
+                cout << "*";
+        }
+        cout << endl;
+    }
+    return 0;
+*/
+
+/* ------------------------------
+Pattern 4: Number Triangle
+------------------------------ */
+/*
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            cout << i;
+        }
+        cout << endl;
+    }
+    return 0;
+*/
+
+/* ------------------------------
+Pattern 5: Butterfly Pattern
+------------------------------ */
+/*
+    int n;
+    cout << "Enter rows:\n";
+    cin >> n;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) cout << "*";
+        for (int j = 1; j <= 2*n - 2*i; j++) cout << " ";
+        for (int j = 1; j <= i; j++) cout << "*";
+        cout << endl;
+    }
+
+    for (int i = n; i >= 1; i--) {
+        for (int j = 1; j <= i; j++) cout << "*";
+        for (int j = 1; j <= 2*n - 2*i; j++) cout << " ";
+        for (int j = 1; j <= i; j++) cout << "*";
+        cout << endl;
+    }
+    return 0;
+*/
+
+/* ------------------------------
+Pattern 6: Floyd's Triangle
+------------------------------ */
+/*
+    int n, count = 1;
+    cout << "Enter rows:\n";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            cout << count;
+            count++;
+        }
+        cout << endl;
+    }
+    return 0;
+*/
+
+}
