@@ -1,0 +1,95 @@
+#include <iostream>
+#include <cmath> // for sqrt()
+using namespace std;
+
+// Function declarations
+void addition();
+void subtraction();
+void multiplication();
+void division();
+void percentage();
+void squareRoot();
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n----- Simple Calculator -----\n";
+        cout << "1. Addition\n";
+        cout << "2. Subtraction\n";
+        cout << "3. Multiplication\n";
+        cout << "4. Division\n";
+        cout << "5. Percentage\n";
+        cout << "6. Square Root\n";
+        cout << "7. Exit\n";
+        cout << "Enter your choice (1-7): ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addition(); break;
+            case 2: subtraction(); break;
+            case 3: multiplication(); break;
+            case 4: division(); break;
+            case 5: percentage(); break;
+            case 6: squareRoot(); break;
+            case 7: cout << "Exiting calculator.\n"; break;
+            default: cout << "Invalid choice. Try again.\n";
+        }
+
+    } while (choice != 7);
+
+    return 0;
+}
+
+// Function Definitions
+
+void addition() {
+    float a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+    cout << "Sum = " << a + b << endl;
+}
+
+void subtraction() {
+    float a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+    cout << "Difference = " << a - b << endl;
+}
+
+void multiplication() {
+    float a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+    cout << "Product = " << a * b << endl;
+}
+
+void division() {
+    float a, b;
+    cout << "Enter dividend and divisor: ";
+    cin >> a >> b;
+    if (b != 0)
+        cout << "Quotient = " << a / b << endl;
+    else
+        cout << "Error: Division by zero!\n";
+}
+
+void percentage() {
+    float total, obtained;
+    cout << "Enter total and obtained marks: ";
+    cin >> total >> obtained;
+    if (total != 0)
+        cout << "Percentage = " << (obtained / total) * 100 << "%" << endl;
+    else
+        cout << "Total marks cannot be zero.\n";
+}
+
+void squareRoot() {
+    float num;
+    cout << "Enter number to find square root: ";
+    cin >> num;
+    if (num >= 0)
+        cout << "Square root = " << sqrt(num) << endl;
+    else
+        cout << "Cannot find square root of a negative number.\n";
+}
