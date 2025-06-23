@@ -1,0 +1,102 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class NumberConverter {
+private:
+    int number;
+
+public:
+    void input() {
+        cout << "Enter a number: ";
+        cin >> number;
+    }
+
+    void decimalToBinary() {
+        int n = number;
+        string binary = "";
+        while (n > 0) {
+            binary = to_string(n % 2) + binary;
+            n = n / 2;
+        }
+        cout << "Binary: " << (binary.empty() ? "0" : binary) << endl;
+    }
+
+    void decimalToOctal() {
+        int n = number;
+        string octal = "";
+        while (n > 0) {
+            octal = to_string(n % 8) + octal;
+            n = n / 8;
+        }
+        cout << "Octal: " << (octal.empty() ? "0" : octal) << endl;
+    }
+
+    void decimalToHexadecimal() {
+        int n = number;
+        string hex = "";
+        char hexChars[] = {'0', '1', '2', '3', '4', '5', '6', '7',
+                           '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        while (n > 0) {
+            hex = hexChars[n % 16] + hex;
+            n = n / 16;
+        }
+        cout << "Hexadecimal: " << (hex.empty() ? "0" : hex) << endl;
+    }
+
+    void binaryToDecimal() {
+        int bin;
+        cout << "Enter a binary number: ";
+        cin >> bin;
+        int decimal = 0, base = 1;
+        while (bin > 0) {
+            int lastDigit = bin % 10;
+            decimal += lastDigit * base;
+            base *= 2;
+            bin /= 10;
+        }
+        cout << "Decimal: " << decimal << endl;
+    }
+};
+
+int main() {
+    NumberConverter obj;
+    int choice;
+
+    do {
+        cout << "\n--- Number System Converter ---\n";
+        cout << "1. Decimal to Binary\n";
+        cout << "2. Decimal to Octal\n";
+        cout << "3. Decimal to Hexadecimal\n";
+        cout << "4. Binary to Decimal\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                obj.input();
+                obj.decimalToBinary();
+                break;
+            case 2:
+                obj.input();
+                obj.decimalToOctal();
+                break;
+            case 3:
+                obj.input();
+                obj.decimalToHexadecimal();
+                break;
+            case 4:
+                obj.binaryToDecimal();
+                break;
+            case 5:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
