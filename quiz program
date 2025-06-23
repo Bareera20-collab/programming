@@ -1,0 +1,171 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+// Structure to store questions, options, and the correct option
+struct Question {
+    string question;
+    string options[4]; // Options A, B, C, D
+    char correctOption;   // Correct option (A, B, C, D)
+};
+
+// Function to ask a multiple-choice question and check if the answer is correct
+void askQuestion(Question q, int &score) {
+    char userAnswer; // To store user's answer
+    cout << q.question << endl;
+
+    // Display options
+    cout << "A) " << q.options[0] << endl;
+    cout << "B) " << q.options[1] << endl;
+    cout << "C) " << q.options[2] << endl;
+    cout << "D) " << q.options[3] << endl;
+
+    cout << "Enter your choice (A/B/C/D): ";
+    cin >> userAnswer;
+    cin.ignore(); // To clear the buffer after taking the character input
+
+    // Convert to uppercase to simplify comparison
+    userAnswer = toupper(userAnswer);
+
+    // Check if the answer is correct
+    if (userAnswer == q.correctOption) {
+        cout << "Correct!" << endl;
+        score++; // Increment score for correct answer
+    } else {
+        cout << "Wrong! The correct answer was: " << q.correctOption << endl;
+    }
+    cout << endl;
+}
+
+// Function to save score to a file
+void saveScore(int score) {
+    ofstream outFile("score.txt");
+    if (outFile.is_open()) {
+        outFile << score;
+        outFile.close();
+        cout << "Score saved!" << endl;
+    } else {
+        cout << "Unable to open file to save score." << endl;
+    }
+}
+
+// Function to read previous score from a file
+int readPreviousScore() {
+    ifstream inFile("score.txt");
+    int prevScore = 0;
+    if (inFile.is_open()) {
+        inFile >> prevScore;
+        inFile.close();
+    } else {
+        cout << "No previous score found!" << endl;
+    }
+    return prevScore;
+}
+
+int main() {
+    int choice;
+
+    // Defining subject data (multiple-choice questions)
+
+    // Math Questions
+    Question mathQuestions[5] = {
+        {"What is 12 * 12?", {"120", "144", "121", "100"}, 'B'},
+        {"What is the square root of 121?", {"10", "11", "12", "13"}, 'B'},
+        {"If a triangle has sides 5, 12, and 13, is it a right triangle?", {"Yes", "No", "Maybe", "Not sure"}, 'A'},
+        {"What is 3^4?", {"81", "27", "64", "81"}, 'A'},
+        {"What is 1000 divided by 25?", {"45", "50", "40", "60"}, 'B'}
+    };
+
+    // Programming Questions
+    Question programmingQuestions[5] = {
+        {"What will be the output of the following code: \nfor(int i = 0; i < 5; i++) cout << i;", {"01234", "12345", "54321", "None of the above"}, 'A'},
+        {"What will be the output of the following code: \nint a = 10; int b = 3; cout << a / b;", {"3", "4", "5", "6"}, 'A'},
+        {"Solve the following: \nint i = 0; while(i < 5) { cout << i; i++; }", {"01234", "12345", "43210", "54321"}, 'A'},
+        {"What is the correct way to declare a loop in C++?", {"for(int i = 0; i < n; i++)", "while(int i = 0; i < n; i++)", "repeat(i < n) { }", "loop(int i = 0; i < n)"}, 'A'},
+        {"Which of the following is the correct way to declare a pointer in C++?", {"int *ptr;", "int ptr;", "int ptr;", "ptr int*;"}, 'A'}
+    };
+
+    // General Knowledge Questions
+    Question generalKnowledgeQuestions[5] = {
+        {"What is the capital of France?", {"London", "Berlin", "Paris", "Madrid"}, 'C'},
+        {"What is the largest continent?", {"Africa", "Asia", "Europe", "Australia"}, 'B'},
+        {"Who wrote the play 'Romeo and Juliet'?", {"Dickens", "Shakespeare", "Austen", "Hemingway"}, 'B'},
+        {"What is the currency of Japan?", {"Yuan", "Won", "Yen", "Ringgit"}, 'C'},
+        {"Which ocean is the largest?", {"Atlantic", "Indian", "Arctic", "Pacific"}, 'D'}
+    };
+
+    // English Questions
+    Question englishQuestions[5] = {
+        {"Which word means 'to speak in a loud and aggressive way'?", {"bellow", "shout", "scream", "whisper"}, 'A'},
+        {"What is the past tense of 'run'?", {"ran", "run", "running", "runs"}, 'A'},
+        {"Which sentence is correct?", {"She don't like ice cream.", "She doesn't like ice cream.", "She didn't like ice cream.", "She isn't like ice cream."}, 'B'},
+        {"What is the correct form of the verb in this sentence: 'He ____ to school every day.'", {"go", "goes", "gone", "gonees"}, 'B'},
+        {"Which of the following is an interrogative sentence?", {"I like ice cream.", "Do you like ice cream?", "I am liking ice cream.", "I liked ice cream."}, 'B'}
+    };
+
+    // Riddles Questions
+    Question riddlesQuestions[5] = {
+        {"I am not alive, but I can grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?", {"Water", "Fire", "Air", "Earth"}, 'B'},
+        {"What has hands but can't clap?", {"Clock", "Human", "Robot", "Tree"}, 'A'},
+        {"What has a head and a tail, but no body?", {"Coin", "Snake", "Worm", "Fish"}, 'A'},
+        {"The more you take, the more you leave behind. What am I?", {"Footsteps", "Air", "Time", "Sand"}, 'A'},
+        {"What is as light as a feather, yet the strongest man can't hold it for more than a few minutes?", {"Breath", "Light", "Water", "Clouds"}, 'A'}
+    };
+
+    do {
+        int score = 0; // Initialize score to 0 for each quiz session
+
+        // Welcome message and start of the game
+        cout << "Welcome to the quiz game!" << endl;
+
+        // Read previous score (if any)
+        int prevScore = readPreviousScore();
+        if (prevScore > 0) {
+            cout << "Your previous score was: " << prevScore << endl;
+        }
+
+        // Menu for subjects
+        cout << "Choose a topic to test your knowledge:" << endl;
+        cout << "1. Math" << endl;
+        cout << "2. Programming" << endl;
+        cout << "3. General Knowledge" << endl;
+        cout << "4. English" << endl;
+        cout << "5. Riddles" << endl;
+        cout << "6. Exit" << endl;
+        cout << "Enter your choice (1-6): ";
+        cin >> choice;
+        cin.ignore(); // To clear the buffer after taking integer input
+
+        switch (choice) {
+            case 1: 
+                for (int i = 0; i < 5; i++) askQuestion(mathQuestions[i], score);
+                break;
+            case 2: 
+                for (int i = 0; i < 5; i++) askQuestion(programmingQuestions[i], score);
+                break;
+            case 3: 
+                for (int i = 0; i < 5; i++) askQuestion(generalKnowledgeQuestions[i], score);
+                break;
+            case 4: 
+                for (int i = 0; i < 5; i++) askQuestion(englishQuestions[i], score);
+                break;
+            case 5: 
+                for (int i = 0; i < 5; i++) askQuestion(riddlesQuestions[i], score);
+                break;
+            case 6: 
+                cout << "Thank you for participating!" << endl;
+                break;
+            default: 
+                cout << "Invalid choice!" << endl;
+        }
+
+        if (choice != 6) {
+            cout << "Your final score: " << score << "/5" << endl;
+            saveScore(score);
+        }
+
+    } while (choice != 6);
+
+    return 0;
+}
